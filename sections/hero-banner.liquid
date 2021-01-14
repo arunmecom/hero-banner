@@ -1,0 +1,178 @@
+
+<div class="hero-banner">
+    <img src="{%if section.settings.desktop_img %} {{section.settings.desktop_img  | img_url: 'master'}}{% else %}{{ 'hero_img.png' | asset_url }}{% endif %}" alt="" class="hero-banner-img desktop">
+    <img src="{%if section.settings.mobile_img %} {{section.settings.mobile_img  | img_url: 'master'}}{% else %}{{ 'hero_img.png' | asset_url }}{% endif %}" alt="" class="hero-banner-img mobile">
+    <div class="hero-banner-content">
+        {% if section.settings.title %}
+            <h1 class="title">
+            {{section.settings.title}}
+            </h1>
+        {% endif %}
+        {% if section.settings.sub_title %}
+            <p class="sub-title">
+                {{section.settings.sub_title}}
+            </p>
+        {% endif %}
+        {% if section.settings.sub_title %}
+            <a class="btn read-more" href="{{section.settings.link_url}}">{{section.settings.link}}</a>
+        {% endif %}
+    </div>
+</div>
+<style>
+    .hero-banner{
+        position: relative;
+        
+    }
+    .hero-banner-img{
+        object-fit: cover;
+        min-height: 500px;
+    }
+    .hero-banner-img.desktop{
+      display: block;
+    }
+    .hero-banner-img.mobile{
+      display: none;
+    }
+
+    .hero-banner-content{
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        color: {{section.settings.color}};
+        width: 100%;
+        text-align: center;
+        padding: 0 20%;
+        {% if section.settings.align == 'right' %}
+            text-align:left;
+            padding-left: 50%;
+            padding-right: 10%;
+        {% endif %}
+        {% if section.settings.align == 'left' %}
+            text-align:left;
+            padding-right: 50%;
+            padding-left: 10%;
+        {% endif %}
+    }
+    .hero-banner-content .title{
+        font-family: 'Roboto', sans-serif;
+        font-weight: 700;
+        font-size: 46px;
+        color:{{section.settings.color}};
+    }
+    .hero-banner-content .sub-title{
+        font-family: 'Roboto', sans-serif;
+        font-weight: 300;
+        font-size: 24px;
+        color:{{section.settings.color}};
+    }
+    .hero-banner-content .read-more{
+        font-family: 'Roboto', sans-serif;
+        font-weight: 300;
+        font-size: 20px;
+        color:#fff;
+        background-color: #57AD68;
+
+    }
+    .hero-banner-content .read-more:hover{
+        font-family: 'Roboto', sans-serif;
+        font-weight: 300;
+        font-size: 20px;
+        color: #57AD68;
+        background-color: #fff;
+        
+    }
+    @media screen and (max-width: 767px){
+        .hero-banner-img.desktop{
+            display: none;
+        }
+        .hero-banner-img.mobile{
+            display: block;
+        }
+        .hero-banner-content{
+            width: 100%;
+            text-align: center;
+            padding: 0 10%;
+        }
+        .hero-banner-content .title{
+            font-size: 36px;
+        }
+        .hero-banner-content .sub-title{
+            font-size: 18px;
+        }
+        
+    }
+
+</style>
+{% schema %}
+  {
+    "name": "Hero Banner",
+    "class": "hero-banner-wrap",
+    "settings": [
+     {
+        "type": "image_picker",
+        "id": "desktop_img",
+        "label": "Desktop Banner Image"
+    },
+    {
+        "type": "image_picker",
+        "id": "mobile_img",
+        "label": "Mobile Banner Image"
+    },
+    {
+        "type": "color",
+        "id": "color",
+        "label": "Section Text Color",
+        "default": "#ffffff"
+     },
+     {
+        "type": "select",
+        "id": "align",
+        "label": "Text Alignment ",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          },
+          {
+            "value": "center",
+            "label": "Middle"
+          }
+        ],
+        "default": "center"
+     },
+     {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "Hero title"
+     },
+     {
+        "type": "textarea",
+        "id": "sub_title",
+        "label": "Copy text",
+        "default": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero totam tenetur cum rem a hic inventore, nihil aliquam voluptatibus laudantium nesciunt."
+     },
+     {
+        "type": "text",
+        "id": "link",
+        "label": "CTA Text ",
+        "default": "Read More"
+     },
+     {
+        "id": "link_url",
+        "type": "url",
+        "label": "CTA URL"
+    }
+    ],
+    "presets": [
+     {
+        "category": "Custom Content",
+        "name": "Hero Banner"
+     }
+    ]
+  }
+{% endschema %}
